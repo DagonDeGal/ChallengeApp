@@ -11,7 +11,7 @@
             //act 
 
             //assert
-            Assert.AreEqual(number1, number2);
+            Assert.AreNotEqual(number1, number2);
 
         }
         
