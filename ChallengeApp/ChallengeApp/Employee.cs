@@ -1,13 +1,14 @@
 ﻿
 
 using ChallengeApp;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
 
 public class Employee
 {
     private List<float> grades = new List<float>();
+    public Employee()
+    {
 
+    }
     public Employee(string name, string surname, string age)
     {
         this.Name = name;
@@ -58,24 +59,34 @@ public class Employee
     }
     public void AddGrade(char grade)
     {
-        float result = (float)grade;
-        if (result >= 64 && result <= 87)
+        switch (grade)
         {
-            this.AddGrade(result - 64);
+            case 'A':
+            case 'a':
+                this.grades.Add(grade);
+                break;
+            case 'B':
+            case 'b':
+                this.grades.Add(grade);
+                break;
+            case 'C':
+            case 'c':
+                this.grades.Add(grade);
+                break;
+            case 'D':
+            case 'd':
+                this.grades.Add(grade);
+                break;
+            case 'E':
+            case 'e':
+                this.grades.Add(grade);
+                break;
+            default:
+                this.grades.Add(grade);
+                break;
         }
-        else
-        {
-            Console.WriteLine("Char is not float");
         }
-
-    }
-    public void AddGrade()
-    {
-        Console.WriteLine("Grade Value!");
-    }
-
-
-    public Statistics GetStatistics()
+        public Statistics GetStatistics()
     {
         var statistics = new Statistics();
         statistics.Average = 0;
@@ -91,79 +102,26 @@ public class Employee
 
         statistics.Average /= this.grades.Count;
 
+        switch (statistics.Average)
+        {
+            case var average when average >= 80:
+                statistics.AverageLetter = 'A';
+                break;
+            case var average when average >= 60:
+                statistics.AverageLetter = 'B';
+                break;
+            case var average when average >= 40:
+                statistics.AverageLetter = 'C';
+                break;
+            case var average when average >= 20:
+                statistics.AverageLetter = 'D';
+                break;
+            default:
+                statistics.AverageLetter = 'E';
+                break;
+        }
         return statistics;
     }
-    public Statistics GetStatisticsWithForEach()
-    {
-        var statistics1 = new Statistics();
-        statistics1.Average = 0;
-        statistics1.Max = float.MinValue;
-        statistics1.Min = float.MaxValue;
-
-        foreach (var grade in this.grades)
-        {
-            statistics1.Max = Math.Max(statistics1.Max, grade);
-            statistics1.Min = Math.Min(statistics1.Min, grade);
-            statistics1.Average += grade;
-        }
-        statistics1.Average /= this.grades.Count;
-        return statistics1;
-    }
-    public Statistics GetStatisticsWithFor()
-    {
-        var statistics2 = new Statistics();
-        statistics2.Average = 0;
-        statistics2.Max = float.MinValue;
-        statistics2.Min = float.MaxValue;
-
-        for (var grade = 0; grade < this.grades.Count;)
-        {
-            statistics2.Max = Math.Max(statistics2.Max, grade);
-            statistics2.Min = Math.Min(statistics2.Min, grade);
-            statistics2.Average += grade;
-        }
-        statistics2.Average /= this.grades.Count;
-        return statistics2;
-    }
-    public Statistics GetStatisticsWithDoWhile()
-    {
-        var statistics3 = new Statistics();
-        statistics3.Average = 0;
-        statistics3.Max = float.MinValue;
-        statistics3.Min = float.MaxValue;
-        var index = 0;
-        do
-        {
-            statistics3.Max = Math.Max(statistics3.Max, this.grades[index]);
-            statistics3.Min = Math.Min(statistics3.Min, this.grades[index]);
-            statistics3.Average += this.grades[index];
-            index++;
-        } while (index < this.grades.Count);
-
-        statistics3.Average /= this.grades.Count;
-        return statistics3;
-    }
-    public Statistics GetStatisticsWithWhile()
-    {
-        var statistics4 = new Statistics();
-        statistics4.Average = 0;
-        statistics4.Max = float.MinValue;
-        statistics4.Min = float.MaxValue;
-        var index = 0;
-
-        while (index < this.grades.Count)
-        {
-            statistics4.Max = Math.Max(statistics4.Max, this.grades[index]);
-            statistics4.Min = Math.Min(statistics4.Min, this.grades[index]);
-            statistics4.Average += this.grades[index];
-            index++;
-
-        }
-
-        statistics4.Average /= this.grades.Count;
-        return statistics4;
-    }
-
 }
 
 

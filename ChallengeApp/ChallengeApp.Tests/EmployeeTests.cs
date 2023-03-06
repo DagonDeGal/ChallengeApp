@@ -8,43 +8,43 @@ namespace ChallengeApp.Tests
 {
     public class EmployeeTests
     {
-        [Test]
-        public void StatisticMinimumValue()
-        {
-            var employee = new Employee("Marta", "Kowalska", "23");
-            employee.AddGrade(8);
-            employee.AddGrade(7);
-            employee.AddGrade(9);
-
-            var statistic = employee.GetStatistics();
-            Assert.AreEqual(statistic.Min, 7);
-        }
 
         [Test]
-        public void StatisticMaximuxValue()
+        public void CorrectMaxLetter()
         {
-            var employee = new Employee("Marta", "Kowalska", "23");
+            var employee = new Employee();
             employee.AddGrade(8);
-            employee.AddGrade(7);
             employee.AddGrade(9);
 
 
             var statistic = employee.GetStatistics();
+
             Assert.AreEqual(statistic.Max, 9);
         }
+        [Test]
+        public void CorrectAverage()
+        {
+            var employee = new Employee();
+            employee.AddGrade('a');
+            employee.AddGrade('c');
+           
+
+            var statistic = employee.GetStatistics();
+            Assert.AreEqual(statistic.Average, 98);
+        }
 
         [Test]
-        public void StatisticAverageValue()
+        public void CorrectAverageLetter()
         {
-            var employee = new Employee("Marta", "Kowalska", "23");
-            employee.AddGrade(8);
-            employee.AddGrade(7);
-            employee.AddGrade(9);
+            var employee = new Employee();
+            employee.AddGrade(80);
+            employee.AddGrade(40);
+            
 
 
             var statistic = employee.GetStatistics();
-
-            Assert.AreEqual(statistic.Average, 8);
+            Assert.AreEqual(statistic.AverageLetter, 'B');
+        }
         }
     }
-}
+
