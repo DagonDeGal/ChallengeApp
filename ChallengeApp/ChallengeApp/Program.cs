@@ -5,6 +5,17 @@ Console.WriteLine("=================================================");
 Console.WriteLine();
 
 var employee = new Employee();
+//try 
+//    Employee emp = null;
+  //  var name = emp.Surname;
+//}
+//{
+ //   Console.WriteLine(exception);
+//}
+//finally 
+//{
+//    Console.WriteLine("Finally here");
+//}
 
 while (true)
 {
@@ -15,11 +26,18 @@ while (true)
     {
         break;
     }
-    employee.AddGrade(input);
+    try
+    {
+        employee.AddGrade(input);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Exception catched: {e.Message}");
+    }
 }
+    var statistic = employee.GetStatistics();
+    Console.WriteLine($"Average: {statistic.Average}");
+    Console.WriteLine($"Average: {statistic.Min}");
+    Console.WriteLine($"Average: {statistic.Max}");
 
-var statistic = employee.GetStatistics();
-Console.WriteLine($"AVG: {statistic.Average}");
-Console.WriteLine($"AVG: {statistic.Min}");
-Console.WriteLine($"AVG: {statistic.Max}");
 
