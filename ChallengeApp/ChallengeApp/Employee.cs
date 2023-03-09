@@ -1,25 +1,17 @@
 ﻿
 
 using ChallengeApp;
+using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-public class Employee
+public class Employee : Person
 {
     private List<float> grades = new List<float>();
-    public Employee()
+    public Employee(string name, string surname, char gender)
+           : base(name, surname, gender)
     {
 
     }
-    public Employee(string name, string surname, string age)
-    {
-        this.Name = name;
-        this.Surname = surname;
-        this.Age = age;
-    }
-    public string Name { get; private set; }
-    public string Surname { get; private set; }
-
-    public string Age { get; private set; }
-
     public void AddGrade(float grade)
     {
         if (grade >= 0 && grade <= 100)
@@ -83,10 +75,10 @@ public class Employee
                 break;
             default:
                 throw new Exception("Correct Letter");
-                
+
         }
-        }
-        public Statistics GetStatistics()
+    }
+    public Statistics GetStatistics()
     {
         var statistics = new Statistics();
         statistics.Average = 0;
