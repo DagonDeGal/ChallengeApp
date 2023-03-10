@@ -30,7 +30,7 @@ namespace ChallengeApp.Tests
            
 
             var statistic = employee.GetStatistics();
-            Assert.AreEqual(statistic.Average, 98);
+            Assert.AreEqual(statistic.Average, 80.0f);
         }
 
         [Test]

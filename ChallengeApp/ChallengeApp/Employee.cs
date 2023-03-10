@@ -1,17 +1,23 @@
-﻿
-
-using ChallengeApp;
-using System.Security.Cryptography.X509Certificates;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-public class Employee : Person
+﻿using ChallengeApp;
+public class Employee : IEmployee
 {
     private List<float> grades = new List<float>();
-    public Employee(string name, string surname, char gender)
-           : base(name, surname, gender)
-    {
 
+    public Employee()
+    {
     }
+
+    public Employee(string name, string surname, string age)
+    {
+        this.Name = name;
+        this.Surname = surname;
+        this.Age = age;
+    }
+
+    public string Name { get; private set; }
+    public string Surname { get; private set; }
+    public string Age { get; private set; }
+
     public void AddGrade(float grade)
     {
         if (grade >= 0 && grade <= 100)
@@ -34,21 +40,18 @@ public class Employee : Person
             throw new Exception("String is not float");
         }
     }
-    public void AddGrade(double grade)
+    public void AddGrade(int grade)
     {
         float result = (float)grade;
         this.AddGrade(result);
     }
-    public void AddGrade(decimal grade)
-    {
-        float result = (float)grade;
-        this.AddGrade(result);
-    }
+
     public void AddGrade(long grade)
     {
         float result = (float)grade;
         this.AddGrade(result);
     }
+
     public void AddGrade(char grade)
     {
         switch (grade)
@@ -78,6 +81,12 @@ public class Employee : Person
 
         }
     }
+
+    public void AddGrade(double grade)
+    {
+        throw new NotImplementedException();
+    }
+
     public Statistics GetStatistics()
     {
         var statistics = new Statistics();
