@@ -1,11 +1,11 @@
 ﻿using ChallengeApp;
 public class Employee : IEmployee
 {
-    private List<float> grades = new List<float>();
-
-    public Employee()
+    public Employee() 
     {
+
     }
+    private List<float> grades = new List<float>();
 
     public Employee(string name, string surname, string age)
     {
@@ -17,6 +17,7 @@ public class Employee : IEmployee
     public string Name { get; private set; }
     public string Surname { get; private set; }
     public string Age { get; private set; }
+    public object Statistics { get; set; }
 
     public void AddGrade(float grade)
     {
@@ -89,39 +90,41 @@ public class Employee : IEmployee
 
     public Statistics GetStatistics()
     {
-        var statistics = new Statistics();
-        statistics.Average = 0;
-        statistics.Max = float.MinValue;
-        statistics.Min = float.MaxValue;
+        { 
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
 
-        foreach (var grade in this.grades)
-        {
-            statistics.Max = Math.Max(statistics.Max, grade);
-            statistics.Min = Math.Min(statistics.Min, grade);
-            statistics.Average += grade;
+            foreach (var grade in this.grades)
+            {
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
+            }
+
+            statistics.Average /= this.grades.Count;
+
+            switch (statistics.Average)
+            {
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average >= 60:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                default:
+                    statistics.AverageLetter = 'E';
+                    break;
+            }
+            return statistics;
         }
-
-        statistics.Average /= this.grades.Count;
-
-        switch (statistics.Average)
-        {
-            case var average when average >= 80:
-                statistics.AverageLetter = 'A';
-                break;
-            case var average when average >= 60:
-                statistics.AverageLetter = 'B';
-                break;
-            case var average when average >= 40:
-                statistics.AverageLetter = 'C';
-                break;
-            case var average when average >= 20:
-                statistics.AverageLetter = 'D';
-                break;
-            default:
-                statistics.AverageLetter = 'E';
-                break;
-        }
-        return statistics;
     }
 }
 

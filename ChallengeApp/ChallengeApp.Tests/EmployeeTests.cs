@@ -17,7 +17,7 @@ namespace ChallengeApp.Tests
             employee.AddGrade(9);
 
 
-            var statistic = employee.GetStatistics();
+            var statistic = employee.Statistics;
 
             Assert.AreEqual(statistic.Max, 9);
         }
@@ -29,7 +29,7 @@ namespace ChallengeApp.Tests
             employee.AddGrade('c');
            
 
-            var statistic = employee.GetStatistics();
+            var statistic = employee.Statistics;
             Assert.AreEqual(statistic.Average, 80.0f);
         }
 
@@ -42,7 +42,7 @@ namespace ChallengeApp.Tests
             
 
 
-            var statistic = employee.GetStatistics();
+            var statistic = employee.Statistics;
             Assert.AreEqual(statistic.AverageLetter, 'B');
         }
         }
