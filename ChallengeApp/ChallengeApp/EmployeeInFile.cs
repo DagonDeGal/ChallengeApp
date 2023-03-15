@@ -4,6 +4,10 @@ namespace ChallengeApp
 {
     public class EmployeeInFile : EmployeeBase
     {
+        public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
+        public event GradeAddedDelegate GradeAdded;
+
         private const string fileName = "grades.txt";
 
         public EmployeeInFile(string name, string surname, string age)
@@ -18,7 +22,13 @@ namespace ChallengeApp
                 {
                     writer.WriteLine(grade);
                 }
-            }
+                if(GradeAdded != null) 
+                {
+                    GradeAdded(this,new EventArgs());
+                }
+
+             
+    }
             else
             {
                 throw new Exception("Invalid number");
