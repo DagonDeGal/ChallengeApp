@@ -2,9 +2,8 @@
 {
     public class EmployeeInMemory : EmployeeBase
     {
-        public override event GradeAddedDelegate GradeAdded;
-
         private List<float> grades = new List<float>();
+        public override event GradeAddedDelegate GradeAdded;
         public EmployeeInMemory(string name, string surname, string age)
             : base(name, surname, age)
         {
@@ -84,7 +83,7 @@
         {
             var statistics = new Statistics();
 
-            foreach (var grade in this.grades)
+            foreach (var grade in grades)
             {
                 statistics.AddGrade(grade);
             }

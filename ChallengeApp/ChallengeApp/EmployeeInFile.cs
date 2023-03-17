@@ -4,7 +4,7 @@ namespace ChallengeApp
     public class EmployeeInFile : EmployeeBase
     {
         private const string fileName = "grades.txt";
-        private List<float> grades = new List<float>();
+
         public override event GradeAddedDelegate GradeAdded;
         public EmployeeInFile(string name, string surname, string age)
              : base(name, surname, age)
@@ -103,42 +103,42 @@ namespace ChallengeApp
                     throw new Exception("Podaj liczbę od 1 do 100 , lub litere od A(a) do E(e)");
             }
         }
+
         public override Statistics GetStatistics()
         {
+            var gradesFromFile = this.ReadGradesFromFile();
+            var result = this.CountStatistics(gradesFromFile);
+            return result;
+        }
+        private List<float> ReadGradesFromFile()
+        {
             var grades = new List<float>();
-            if (File.Exists(fileName))
+
+            if (File.Exists($"{fileName}"))
             {
                 using (var reader = File.OpenText(fileName))
                 {
                     var line = reader.ReadLine();
                     while (line != null)
                     {
-                        float.TryParse(line, out float number);
-                        if (number > 0)
-                        {
-                            grades.Add(number);
-                        }
+                        var number = float.Parse(line);
+                        grades.Add(number);
                         line = reader.ReadLine();
+
                     }
                 }
             }
-            else
-            {
-                throw new Exception($"File {fileName} does not exist.");
-            }
+            return grades;
+        }
+        private Statistics CountStatistics(List<float> grades)
+        {
             var statistics = new Statistics();
-
             foreach (var grade in grades)
             {
                 statistics.AddGrade(grade);
+
             }
             return statistics;
         }
     }
 }
-
-
-
-              
-
-            

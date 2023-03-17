@@ -20,7 +20,7 @@ namespace ChallengeApp
 
         void AddGrade(string grade);
 
-        event GradeAddedDelegate GradeAdded;
+        public event GradeAddedDelegate GradeAdded;
         Statistics GetStatistics();
     }
 }
