@@ -1,12 +1,8 @@
-﻿
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
     public class EmployeeInMemory : EmployeeBase
     {
-        public delegate void GradeAddedDelegate(object sender, EventArgs args);
-
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate GradeAdded;
 
         private List<float> grades = new List<float>();
         public EmployeeInMemory(string name, string surname, string age)
@@ -18,8 +14,7 @@ namespace ChallengeApp
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
-
-                if(GradeAdded != null)
+                if (GradeAdded != null)
                 {
                     GradeAdded(this, new EventArgs());
                 }
@@ -29,25 +24,18 @@ namespace ChallengeApp
                 throw new Exception("Invalid grade value");
             }
         }
-
-        public override void AddGrade(string grade)
+        public override void AddGrade(double grade)
         {
-            if (float.TryParse(grade, out float result))
-            {
-                this.AddGrade(result);
-            }
-            else
-            {
-                throw new Exception("String is not float");
-            }
+            float doubleAsFloat = (float)grade;
+            this.AddGrade(doubleAsFloat);
+
         }
 
         public override void AddGrade(int grade)
         {
-            float result = (float)grade;
-            this.AddGrade(result);
+            float intAsFloat = grade;
+            this.AddGrade(intAsFloat);
         }
-
         public override void AddGrade(char grade)
         {
             switch (grade)
@@ -73,54 +61,36 @@ namespace ChallengeApp
                     this.grades.Add(20);
                     break;
                 default:
-                    throw new Exception("Correct Letter");
+                    throw new Exception("Wrong Letter");
 
             }
         }
-        public override void AddGrade(double grade)
+        public override void AddGrade(string grade)
         {
-            float result = (float)grade;
-            this.AddGrade(result);
+            if (float.TryParse(grade, out float result))
+            {
+                this.AddGrade(result);
+            }
+            else if (char.TryParse(grade, out char resultLetter))
+            {
+                this.AddGrade(resultLetter);
+            }
+            else
+            {
+                throw new Exception("String is not a float");
+            }
         }
-
         public override Statistics GetStatistics()
         {
+            var statistics = new Statistics();
 
+            foreach (var grade in this.grades)
             {
-                var statistics = new Statistics();
-                statistics.Average = 0;
-                statistics.Max = float.MinValue;
-                statistics.Min = float.MaxValue;
-
-                foreach (var grade in this.grades)
-                {
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Average += grade;
-                }
-
-                statistics.Average /= this.grades.Count;
-
-                switch (statistics.Average)
-                {
-                    case var average when average >= 80:
-                        statistics.AverageLetter = 'A';
-                        break;
-                    case var average when average >= 60:
-                        statistics.AverageLetter = 'B';
-                        break;
-                    case var average when average >= 40:
-                        statistics.AverageLetter = 'C';
-                        break;
-                    case var average when average >= 20:
-                        statistics.AverageLetter = 'D';
-                        break;
-                    default:
-                        statistics.AverageLetter = 'E';
-                        break;
-                }
-                return statistics;
+                statistics.AddGrade(grade);
             }
+            return statistics;
         }
     }
 }
+
+

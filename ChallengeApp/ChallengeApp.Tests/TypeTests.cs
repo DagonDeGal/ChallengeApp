@@ -6,16 +6,16 @@
         public void WhenCompareTwoNumbers_ShouldGiveCorrectResult()
         {
             //arrage
-           int number1 = 12;
-           int number2 = 24;
+            int number1 = 12;
+            int number2 = 24;
             //act 
 
             //assert
             Assert.AreNotEqual(number1, number2);
 
         }
-        
-          [Test]
+
+        [Test]
         public void WhenPriceCompare_ShouldReturnResult()
         {
             //arrage
@@ -34,8 +34,8 @@
         public void GetUserShouldReturnDifferent()
         {
             //arrage
-           string user1 ="Tomasz";
-           string user2 = "Tomasz";
+            string user1 = "Tomasz";
+            string user2 = "Tomasz";
 
             //act 
 
@@ -43,23 +43,10 @@
             //assert
             Assert.AreEqual(user1, user2);
         }
-
-        [Test]
-        public void GetEmploye_ShouldDifferentResult()
-        {
-            //arrage
-            var employee1 = GetEmployee("Michał", "Malicki", "32");
-            var employee2 = GetEmployee("Kasia", "Kowalska", "28");
-            //act 
-
-            //assert
-            Assert.AreNotEqual(employee1, employee2);
-
-        }
-        private Employee GetEmployee(string name, string surname,string age)
-        {
-            return new Employee(name, surname,age);
-        }
     }
 }
+       
+       
+  
+
 

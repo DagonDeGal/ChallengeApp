@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
     public abstract class EmployeeBase : IEmployee
     {
         public delegate void GradeAddedDelegate(object sender, EventArgs args);
-        public event GradeAddedDelegate GradeAdded;
+        public abstract event GradeAddedDelegate GradeAdded;
+
         public EmployeeBase(string name, string surname, string age)
         {
             this.Name = name;
@@ -18,8 +13,7 @@ namespace ChallengeApp
         }
 
         public string Name { get; set; }
-        public string Surname { get; private set; }
-        
+        public string Surname { get; private set; }  
         public string Age { get; private set; }
 
         public abstract void AddGrade(float grade);
